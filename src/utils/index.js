@@ -7,16 +7,21 @@ export const addDietaryCount = (items, dietaryCount) =>
     {}
   );
 
-export const removeDietaryCount = (items, dietaryCount) => {
+export const removeDietaryCount = (items, id, dietaryCount) => {
   if (!items) return {};
+  let updated = { ...dietaryCount };
 
-  return items.dietaries.reduce(
-    (acc, dietary) => ({
-      ...acc,
-      [dietary]: dietaryCount[dietary] - 1 || 1,
-    }),
-    {}
-  );
+  items
+    .filter(item => item.id === id)[0]
+    .dietaries.forEach(type => {
+      if (updated[type] > 1) {
+        updated = { ...updated, [type]: dietaryCount[type] - 1 };
+      } else {
+        delete updated[type];
+      }
+    });
+
+  return updated;
 };
 
 export const add = (items, id) => items.filter(item => item.id === id);

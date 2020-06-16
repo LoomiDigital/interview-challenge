@@ -53,7 +53,7 @@ export class Home extends PureComponent {
   removeItem(id) {
     const { selectedItems, dietaryCount, menuItemCount } = this.state;
     const updateItems = remove(selectedItems, id);
-    const updateDietary = removeDietaryCount(updateItems[0], dietaryCount);
+    const updateDietary = removeDietaryCount(selectedItems, id, dietaryCount);
 
     this.setState({
       selectedItems: updateItems,
